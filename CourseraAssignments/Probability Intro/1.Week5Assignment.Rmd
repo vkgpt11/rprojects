@@ -31,6 +31,21 @@ load("brfss2013.RData")
 * * *
 
 ## Part 1: Data
+I am trying to build a relation between  women and their health condition considering their pregency.
+here I am creating a new varriable with mutate goodhealth, fair and poor is considered as not good health.
+I am also creating a per varriable wh
+```{r}
+WomenHealthData = brfss2013 %>% 
+  select(pregnant,hlthpln1,genhlth,sex,exerany2,marital) %>%
+  filter(sex=='Female',marital=='Married',!is.na(pregnant), !is.na(hlthpln1), !is.na(genhlth),!is.na(sex),!is.na(exerany2)) %>%
+  mutate(goodhealth=as.factor(ifelse(genhlth=="Excellent" | genhlth=="Very good" | genhlth=="Good" ,"Yes","No")))
+
+WomenHealthData$goodhealth =factor(WomenHealthData$goodhealth , levels = c("Yes", "No"))
+
+CleanWomenHealthData = WomenHealthData %>%
+  select(pregnant,hlthpln1,exerany2,goodhealth)
+```
+
 
 
 * * *
@@ -38,12 +53,13 @@ load("brfss2013.RData")
 ## Part 2: Research questions
 
 **Research quesion 1:**
+Healthier women are getting more pregnants then women with poor health condition? -> their percentage is more
 
 **Research quesion 2:**
+Women heving healthcare coverage are more healthier then those does not have healthcare coverage?
 
 **Research quesion 3:**
-
-
+Pregnant women those who excrise having good health condition?
 * * *
 
 ## Part 3: Exploratory data analysis
@@ -55,7 +71,15 @@ in the project you submit. Delete this note when before you submit your work.
 **Research quesion 1:**
 
 ```{r}
+ CleanWomenHealthData %>%
+  group_by(goodhealth,pregnant) %>%
+  summarise(count=n()) %>%
+   mutate(per=paste0(round(100*count/sum(count),2),'%'))
+```
 
+```{r}
+
+ggplot(CleanWomenHealthData,aes(x=goodhealth, fill=pregnant))  + geom_bar()
 ```
 
 
@@ -63,7 +87,14 @@ in the project you submit. Delete this note when before you submit your work.
 **Research quesion 2:**
 
 ```{r}
+CleanWomenHealthData %>%
+  group_by(goodhealth,hlthpln1) %>%
+  summarise(count=n()) %>%
+   mutate(per=paste0(round(100*count/sum(count),2),'%'))
+```
 
+```{r}
+ggplot(CleanWomenHealthData,aes(x=goodhealth, fill=hlthpln1))  + geom_bar()
 ```
 
 
@@ -71,5 +102,13 @@ in the project you submit. Delete this note when before you submit your work.
 **Research quesion 3:**
 
 ```{r}
+ CleanWomenHealthData %>%
+  filter(pregnant == "Yes") %>%
+  group_by(goodhealth,exerany2) %>%
+  summarise(count=n()) %>%
+   mutate(per=paste0(round(100*count/sum(count),2),'%'))
+```
 
+``` {r}
+ggplot(CleanWomenHealthData,aes(x=goodhealth, fill=exerany2))  + geom_bar()
 ```

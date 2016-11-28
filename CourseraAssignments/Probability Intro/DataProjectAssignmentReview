@@ -1,0 +1,36 @@
+Data Project of Week 5
+---------------------
+Data
+
+1. Generalizability: Describe how the observations in the sample are collected, and the implications of this data collection method on generalizability.
+  -Did the author describe the sampling method, mentioning that a random sample was used?
+  -Did the author decide that the results can be generalized to the US population?
+
+
+2.  Causality: Describe how the observations in the sample are collected, and the implications of this data collection method on causality.
+  -Did the author decide that no random assignment was used, and hence causality cannot be inferred?
+
+Questions  
+  
+3. Research Question: Is the research question phrased in a non-causal way?
+  -Is the research question well defined / not vague? Note: "Well defined" means it is obvious from the research questions which variables will be    involved in the analysis.
+  -Is it clear why this research question is of interest to the author and/or the reader?
+  -Is the research question phrased in a non-causal way?
+  -Do at least two of the research questions involve three variables?
+  
+EDA for Research Question
+  
+4. Plots
+  -Do the plots address the research questions?
+  -Are the plots constructed correctly?
+  -Are the plots formatted well? (Size not too large, not too small, etc.)
+
+5. SUMMARY STATISTICS
+  -Do the summary statistics address the research question?
+  -Are the summary statistics calculated correctly?
+  -Are the summary statistics formatted well? (Not taking up pages and pages, etc.)
+  
+6. NARRATIVE
+  - Is each plot and R output accompanied by a narrative?
+  - Does the narrative interpret the visuals and summary statistics correctly?
+  - Does the narrative address the research question?
