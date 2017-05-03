@@ -45,14 +45,42 @@ str(clus3)
 
 ## Finding the optimal value of K
 
-r_sq<- rnorm(20)
+r_sq<- rnorm(10)
 
-for (number in 1:20){clus <- kmeans(data_cleaned, centers = number, nstart = 50)
+for (number in 1:10){clus <- kmeans(data_cleaned, centers = number, nstart = 50)
 r_sq[number]<- clus$betweenss/clus$totss
 }
 
 plot(r_sq)
+r_sq
 
+
+#Elbow Method for finding the optimal number of clusters
+set.seed(123)
+# Compute and plot wss for k = 2 to k = 15.
+k.max <- 20
+data <- data_cleaned
+wss <- sapply(1:k.max, 
+              function(k){kmeans(data, k, nstart=50,iter.max = 15 )$tot.withinss})
+wss
+plot(1:k.max, wss,
+     type="b", pch = 19, frame = FALSE, 
+     xlab="Number of clusters K",
+     ylab="Total within-clusters sum of squares")
+
+
+#install.packages("GMD")
+library(GMD)
+elbow.k <- function(mydata){
+  dist.obj <- dist(mydata)
+  hclust.obj <- hclust(dist.obj)
+  css.obj <- css.hclust(dist.obj,hclust.obj)
+  elbow.obj <- elbow.batch(css.obj)
+  k <- elbow.obj$k
+  return(k)
+}
+
+elbow.k(data_cleaned)
 
 clus5 <- kmeans(data_cleaned, centers = 5, iter.max = 50, nstart = 50)
 clus5
