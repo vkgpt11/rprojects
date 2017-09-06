@@ -1,1 +1,1 @@
-# contains machine learning algorithms samples 
+# It contains all machine learning projects
